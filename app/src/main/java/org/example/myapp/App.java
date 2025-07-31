@@ -1,23 +1,21 @@
 package org.example.myapp;
 
-import java.util.Scanner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-/**
- * 이 클래스는 한밭대학교 특강 실습 예제를 위한 첫 번째 클래스입니다.<br>
- * <code>App</code> 클래스!
- */
+/*
+// 스프링 부트를 실행할 수 있도록 기본 정보를 자동 설정(하는 애노테이션)
+@EnableAutoConfiguration
+
+// 현재 클래스와 같은 패키지 및 하위 패키지를 다 뒤져서 컴포넌트를 찾아 자동 생성하라는 설정.
+// => @Component, @RestController, @Controller, @Service, @Repository 등이 붙은 클래스를 찾는다. 없으면 안찾는다.
+@ComponentScan
+*/
+@SpringBootApplication // = @SpringBootConfiguration + @EnableAutoConfiguration + @ComponentScan
 public class App {
 
-  /**
-   * 이 메서드는 entry point 이다. 콘솔에 "Hello!" 메세지를 출력합니다.
-   *
-   * @param args 명령행 인수 배열(이 프로그램에서는 사용되지 않음)
-   */
   public static void main(String[] args) {
-    Scanner scanner = new Scanner(System.in);
-    System.out.print("이름? ");
-    String name = scanner.nextLine();
-    System.out.printf("안녕하세요 %s 님!\n", name);
-    scanner.close();
+    SpringApplication.run(App.class, args);
+    System.out.println("스프링부트 서버 시작!");
   }
 }

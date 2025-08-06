@@ -1,32 +1,41 @@
 plugins {
-    id 'application'
+    id 'java'
+    id 'org.springframework.boot' version '3.5.4'
 }
+
+// Springboot의 버전에 맞춰 의존 라이브러리 버전을 관리하는 플러그인
+apply plugin: 'io.spring.dependency-management'
 
 repositories {
     mavenCentral() // 의존 라이브러리를 다운로드 받을 중앙 저장소 서버의 주소를 지정
 }
 
 dependencies {
-    implementation 'com.google.guava:guava:33.4.5-jre'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.12.1'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
 }
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(17)
     }
 }
 
-application {
-    mainClass = 'org.example.myapp.App'
-}
-
-jar {
+bootJar {
     archiveFileName = 'myapp.jar'
 }
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+tasks.withType(JavaExec) { // gradle으로 실행시 한글 깨짐 현상을 해결하기 위한 설정
+    systemProperty 'sun.stdout.encoding', 'UTF-8'
+    systemProperty 'sun.stderr.encoding', 'UTF-8'
 }
